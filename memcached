@@ -1,0 +1,41 @@
+<?php
+$men = new Memcache;
+if($men->connect("127.0.0.1",11211));
+//可添加的对象：字符串，整形，数组，对象,JSON，布尔值，空
+//添加
+$mem->add($key,$var,MEMCACHE_COMPRESSED,60);//MEMCACHE_COMPRESSEDS表示压缩(zlib),60秒
+//查询
+$men->get($key);
+//在另外一个文件中取对象时，要讲重新申明类定义；
+class dog{
+  public $name=;
+  public $age;
+  public function __conbstruct($name,$age){
+    $this->name=$name;
+    $this->age=$age;
+  }
+}
+
+$dog = new dog("小狗",5);
+$mem->set('dog',$dog,MEMCACHE_COMPRESSED,60);
+//修改
+$mem->repalce('dog',$dog,MEMCACHE_COMPRESSED,60);
+//添加序列化serialize(), 将数组，对象等保存成字符串，并把保存期结构，get之后需要反序列化unserialize(),
+//可以json_encode()处理，get后需要 json_decode();
+//序列化和JSON_DECODE的区别 
+    1.序列化后得到的字符串，有数据信息和数据类型,回复的时候需要反序列化
+    2.json_encode 是JSON对象
+    
+ //删除
+ if（$mem->delete($key)）{
+  echo $key."已被删除";
+ }else{
+  echo $key."不存在";
+ }
+ 删除所有的元素
+ $mem->flush();
+ 
+ 注意：
+ 在添加的时候，把 expire设为0，便永不过期（除非重启），如果设置过去时间，最大是30天（30*24*3600），如果n超过30天设置为(time()+n*24*3600)
+ 
+    
